@@ -2,6 +2,7 @@ import json
 import io
 import pandas as pd
 import requests
+import math
 
 from bokeh.plotting import figure
 from bokeh.resources import CDN
@@ -15,6 +16,8 @@ from bokeh.models import (
     LogColorMapper,
     ColorBar,
     NumeralTickFormatter,
+    FixedTicker,
+    FuncTickFormatter
 )
 from bokeh.models.widgets import Slider, Button
 from bokeh.layouts import column, row, widgetbox, Spacer
@@ -255,6 +258,8 @@ def main():
         title=f"New Daily Cases, {moving_window} day moving average",
     )
 
+    ticker = FixedTicker(ticks=[10,100,1000,10000,100000,300000])
+
     color_bar_p2 = ColorBar(
         # color_mapper=color_mapper_linear_new_cases,
         color_mapper=color_mapper,
@@ -263,6 +268,7 @@ def main():
         height=colorbar_height,
         location=(0, 0),
         orientation="horizontal",
+        ticker=ticker, 
         formatter=NumeralTickFormatter(format="0,0"),
     )
 
