@@ -129,7 +129,7 @@ def main():
         columns=["country_code", "geometry", "country"]
     )
     total_merged_to_mat = total_merged_to_mat.sort_values(by=["Country/Region"])
-    total_mat = total_merged_to_mat.as_matrix().transpose()
+    total_mat = total_merged_to_mat.values.transpose()
     merged = gdf.merge(
         total_latest, right_on="Country/Region", left_on="country", sort=False
     )
@@ -425,7 +425,7 @@ def main():
         columns=["country_code", "geometry", "country"]
     )
     total_merged_to_mat = total_merged_to_mat.sort_values(by=["Country/Region"])
-    total_mat = total_merged_to_mat.as_matrix().transpose()
+    total_mat = total_merged_to_mat.values.transpose()
     merged = gdf.merge(
         total_latest, right_on="Country/Region", left_on="country", sort=False
     )

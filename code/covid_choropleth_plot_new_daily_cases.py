@@ -123,14 +123,10 @@ def main():
         total.iloc[:, 3:].diff(axis=1).fillna(0).astype(int)
     )
     diff_cases = total.iloc[:, 3:].diff(axis=1).fillna(0).astype(int)
-    print('------------------------- original')
-    print(diff_cases)
     diff_cases = diff_cases.rolling(moving_window, axis=1).mean().fillna(0).astype(int)
 
     tmp = total.iloc[:, 3:].diff(axis=1).fillna(0).astype(int).copy()
     tmp2 = total.iloc[:, 3:].diff(axis=1).fillna(0).astype(int).copy()
-    print('------------------------- rolling function')
-    print(diff_cases)
     for i in range(2, len(tmp.columns)-2):
             tmp2.iloc[:, i] = ((
             tmp2.iloc[:, i-2] +
@@ -138,8 +134,6 @@ def main():
             tmp2.iloc[:, i] +
             tmp2.iloc[:, i+1] +
             tmp2.iloc[:, i+2] )/5)
-    print('------------------------- manual 5 day')
-    print(tmp2.fillna(0).astype(int))
 
     #new_cases = total.iloc[:, :3].join(diff_cases)
     new_cases = total.iloc[:, :3].join(tmp2)
@@ -158,7 +152,7 @@ def main():
         columns=["country_code", "geometry", "country"]
     )
     total_merged_to_mat = total_merged_to_mat.sort_values(by=["Country/Region"])
-    total_mat = total_merged_to_mat.as_matrix().transpose()
+    total_mat = total_merged_to_mat.values.transpose()
     merged = gdf.merge(
         total_latest, right_on="Country/Region", left_on="country", sort=False
     )
@@ -174,7 +168,7 @@ def main():
         columns=["country_code", "geometry", "country"]
     )
     new_cases_merged_to_mat = new_cases_merged_to_mat.sort_values(by=["Country/Region"])
-    new_cases_mat = new_cases_merged_to_mat.as_matrix().transpose()
+    new_cases_mat = new_cases_merged_to_mat.values.transpose()
     merged_new_cases = gdf.merge(
         new_cases_latest, right_on="Country/Region", left_on="country", sort=False
     )
@@ -467,14 +461,10 @@ def main():
         total.iloc[:, 3:].diff(axis=1).fillna(0).astype(int)
     )
     diff_cases = total.iloc[:, 3:].diff(axis=1).fillna(0).astype(int)
-    print('------------------------- original')
-    print(diff_cases)
     diff_cases = diff_cases.rolling(moving_window, axis=1).mean().fillna(0).astype(int)
 
     tmp = total.iloc[:, 3:].diff(axis=1).fillna(0).astype(int).copy()
     tmp2 = total.iloc[:, 3:].diff(axis=1).fillna(0).astype(int).copy()
-    print('------------------------- rolling function')
-    print(diff_cases)
     for i in range(2, len(tmp.columns)-2):
             tmp2.iloc[:, i] = ((
             tmp2.iloc[:, i-2] +
@@ -482,8 +472,6 @@ def main():
             tmp2.iloc[:, i] +
             tmp2.iloc[:, i+1] +
             tmp2.iloc[:, i+2] )/5)
-    print('------------------------- manual 5 day')
-    print(tmp2.fillna(0).astype(int))
 
     #new_cases = total.iloc[:, :3].join(diff_cases)
     new_cases = total.iloc[:, :3].join(tmp2)
@@ -502,7 +490,7 @@ def main():
         columns=["country_code", "geometry", "country"]
     )
     total_merged_to_mat = total_merged_to_mat.sort_values(by=["Country/Region"])
-    total_mat = total_merged_to_mat.as_matrix().transpose()
+    total_mat = total_merged_to_mat.values.transpose()
     merged = gdf.merge(
         total_latest, right_on="Country/Region", left_on="country", sort=False
     )
@@ -518,7 +506,7 @@ def main():
         columns=["country_code", "geometry", "country"]
     )
     new_cases_merged_to_mat = new_cases_merged_to_mat.sort_values(by=["Country/Region"])
-    new_cases_mat = new_cases_merged_to_mat.as_matrix().transpose()
+    new_cases_mat = new_cases_merged_to_mat.values.transpose()
     merged_new_cases = gdf.merge(
         new_cases_latest, right_on="Country/Region", left_on="country", sort=False
     )
