@@ -85,13 +85,14 @@ def main():
     total = total.sort_values(by=["Country/Region"])
     total = total.groupby("Country/Region").sum().reset_index()
     total = total.sort_values(by=["Country/Region"])
-
+    print(total)
     # Get dates for date label
     dates = list(total.columns)
-    dates = dates[skipCols + 1 : len(total.columns) - skipColsTail]
-    num_days = total.shape[1] - (skipCols + skipColsTail + 1)
+    dates = dates[skipCols + 1 : len(total.columns)]
+    num_days = total.shape[1] - (skipCols + skipColsTail)
     latest_date_col = total.columns[num_days + skipCols]
-
+    print(latest_date_col)
+    print(dates)
     # Get and clean data
     shapefile = "../geo_data/countries_110m/ne_110m_admin_0_countries.shp"
 

@@ -86,8 +86,8 @@ def main():
 
     # Get dates for date label
     dates = list(total.columns)
-    dates = dates[skipCols + 1 : len(total.columns) - skipColsTail]
-    num_days = total.shape[1] - (skipCols + skipColsTail + 1)
+    dates = dates[skipCols + 1 : len(total.columns)]
+    num_days = total.shape[1] - (skipCols + skipColsTail)
     latest_date_col = total.columns[num_days + skipCols]
 
     # Get and clean data
@@ -270,7 +270,7 @@ def main():
     )
 
     # Set up Play/Pause button/toggle JS
-    toggl_js = CustomJS(args=dict(slider=timeslider_cumulative, end=[i for i in range(1, num_days)]),
+    toggl_js = CustomJS(args=dict(slider=timeslider_cumulative, end=[i for i in range(1, num_days+1)]),
         code="""
         // A little lengthy but it works for me, for this problem, in this version.
             step_length_ms = 300
@@ -382,8 +382,8 @@ def main():
 
     # Get dates for date label
     dates = list(total.columns)
-    dates = dates[skipCols + 1 : len(total.columns) - skipColsTail]
-    num_days = total.shape[1] - (skipCols + skipColsTail + 1)
+    dates = dates[skipCols + 1 : len(total.columns)]
+    num_days = total.shape[1] - (skipCols + skipColsTail)
     latest_date_col = total.columns[num_days + skipCols]
 
     # Get and clean data
@@ -566,11 +566,11 @@ def main():
     )
 
     # Set up Play/Pause button/toggle JS
-    toggl_js = CustomJS(args=dict(slider=timeslider_cumulative, end=[i for i in range(1, num_days)]),
+    toggl_js = CustomJS(args=dict(slider=timeslider_cumulative, end=[i for i in range(1, num_days+1)]),
         code="""
         // A little lengthy but it works for me, for this problem, in this version.
             step_length_ms = 300
-            
+            console.log(end)
             var check_and_iterate = function(index){
                 var slider_val = slider.value;
                 var toggle_val = cb_obj.active;
